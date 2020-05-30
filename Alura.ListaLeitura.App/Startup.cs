@@ -1,29 +1,25 @@
-﻿using Alura.ListaLeitura.App.Repositorio;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+
 
 namespace Alura.ListaLeitura.App
 {
-    public  class Startup
+    public class Startup { 
+    public void ConfigureServices(IServiceCollection services)
     {
-        public void Configure(IApplicationBuilder app)
-        {
-            //app.Run(LivrosParaLer);
-            app.Run(Lidos);
-        }
-        public Task LivrosParaLer(HttpContext context)
-        {
-            
-            var _repo = new LivroRepositorioCSV();
-            return context.Response.WriteAsync( _repo.ParaLer.ToString());
-        }
-
-        public Task Lidos(HttpContext context)
-        {
-            var _repo = new LivroRepositorioCSV();
-
-            return context.Response.WriteAsync(_repo.Lidos.ToString());
-        }
+        
+        services.AddMvc();
     }
+
+    public void Configure(IApplicationBuilder app)
+    {
+            app.UseDeveloperExceptionPage();
+            app.UseMvcWithDefaultRoute();
+
+        //app.Run(Roteamento);
+    }
+
+  
+   
+}
 }
